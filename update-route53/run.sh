@@ -1,5 +1,3 @@
-
-
 is_ip_address() {
     local ip="$1"
     local ip_regex='^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
@@ -9,7 +7,7 @@ is_ip_address() {
 export NEW_ADDRESS=`curl http://ipconfig.io -s`
 export OLD_ADDRESS=`nslookup $DNS_RECORD | grep 'Address' | awk '{print $2}' | grep -v 53`
 
-# export NEW_ADDRESS="24.135.126.207"
+# export NEW_ADDRESS="192.168.0.14"
 # export OLD_ADDRESS="24.135.126.207"
 
 if is_ip_address "$NEW_ADDRESS"; then

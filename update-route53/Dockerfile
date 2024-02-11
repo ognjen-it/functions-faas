@@ -1,11 +1,9 @@
 FROM python:3.12.2-alpine3.19
 
-COPY run.sh /app/
-
 RUN apk add curl
 RUN pip3 install --no-cache-dir awscli 
 
-RUN aws --version
+COPY run.sh /app/
 
 ENV HOSTED_ZONE_ID $HOSTED_ZONE_ID
 ENV DNS_RECORD $DNS_RECORD

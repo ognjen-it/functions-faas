@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: update-route53
+  namespace: "jobs"
+spec:
+  schedule: "0/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: update-route53
+            image: ognjenit/route54-ddns:0.0.3
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - sh /app/run.sh
+            env:
+            - name: HOSTED_ZONE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: update-route53
+                  key: HOSTED_ZONE_ID
+            - name: DNS_RECORD
+              valueFrom:
+                secretKeyRef:
+                  name: update-route53
+                  key: DNS_RECORD
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: update-route53
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: update-route53
+                  key: AWS_SECRET_ACCESS_KEY
+          restartPolicy: OnFailure
