@@ -4,7 +4,7 @@ metadata:
   name: check-edb-bvk
   namespace: "jobs"
 spec:
-  schedule: "0 8,17 * * *"
+  schedule: "0 8/12 * * *"
   jobTemplate:
     spec:
       template:
